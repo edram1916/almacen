@@ -28,7 +28,7 @@ public class VtnaAddProd extends javax.swing.JFrame {
         setTitle("Proveedor");
         setLocationRelativeTo(null);
     }
-    
+   
     private void cargarProveedores() {
         selectProv.removeAllItems();
         for( int i = 0; i < this.almacen.cantidadProveedores(); ++i ) {
@@ -37,8 +37,10 @@ public class VtnaAddProd extends javax.swing.JFrame {
         }
     }
     
-    private void limpiarTipos() {
-        
+    private void limpiarCampos() {
+        txtCodProd.setText("");
+        txtDescProd.setText("");
+        txtPrecioProd.setText("");
     }
 
     /**
@@ -229,7 +231,7 @@ public class VtnaAddProd extends javax.swing.JFrame {
         tipoProducto = 2;
     }//GEN-LAST:event_Prod3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
         
         int provIndex = selectProv.getSelectedIndex();
@@ -255,7 +257,10 @@ public class VtnaAddProd extends javax.swing.JFrame {
         if( Main.MainWindow.provSeleccion == provIndex ) {
             Main.MainWindow.actualizarProductos();
         }
+    }
         
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
