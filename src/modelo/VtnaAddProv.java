@@ -42,7 +42,6 @@ public class VtnaAddProv extends javax.swing.JFrame {
         txtmailCl = new javax.swing.JTextField();
         btnGuardarProv = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        btnEditProv = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,8 +67,6 @@ public class VtnaAddProv extends javax.swing.JFrame {
             }
         });
 
-        btnEditProv.setText("Editar");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -92,8 +89,6 @@ public class VtnaAddProv extends javax.swing.JFrame {
                 .addGap(0, 77, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnEditProv)
-                .addGap(18, 18, 18)
                 .addComponent(btnGuardarProv)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
@@ -121,8 +116,7 @@ public class VtnaAddProv extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardarProv)
-                    .addComponent(jButton2)
-                    .addComponent(btnEditProv))
+                    .addComponent(jButton2))
                 .addGap(32, 32, 32))
         );
 
@@ -144,7 +138,7 @@ public class VtnaAddProv extends javax.swing.JFrame {
             ++indiceActual;
         }
 
-        Proveedor p = new Proveedor(NombreCl.getText(), TelCl.getText(), DirCl.getText(), MailCl.getText());
+        Proveedor p = new Proveedor(txtnombreCl.getText(), TelCl.getText(), DirCl.getText(), MailCl.getText());
         this.almacen.agregarProveedor(p);
         
         // Proveedor p = new Proveedor(NombreCl.getText(), TelCl.getText(), DirCl.getText(), MailCl.getText());
@@ -161,22 +155,12 @@ public class VtnaAddProv extends javax.swing.JFrame {
        
     }//GEN-LAST:event_btnGuardarProvActionPerformed
 
-    /*
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                System.out.println("blablablaba");
-                new VtnaAddProv().setVisible(true);
-            }
-        });
-    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel DirCl;
     private javax.swing.JLabel MailCl;
     private javax.swing.JLabel NombreCl;
     private javax.swing.JLabel TelCl;
-    private javax.swing.JButton btnEditProv;
     private javax.swing.JButton btnGuardarProv;
     private javax.swing.JButton jButton2;
     private javax.swing.JTextField txtdirCl;
