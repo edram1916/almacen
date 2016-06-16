@@ -64,18 +64,31 @@ public class Proveedor implements Comparable<Proveedor>, Serializable{
     };
     
     public boolean existeProducto(String codigo) {
+        System.out.println("existeProducto, input: " + codigo);
+        boolean match = false;
         for(Producto p : productos) {
-            if (p.equalsIgnoreCase(codigo)) {
-                return true;
+            System.out.println("existeProducto, iteracion:" + p.codigo );
+            if( p.codigo.equals(codigo) ) {
+                match = true;
+                System.out.println("existeProducto, break! " + codigo + "==" + p.codigo );
             }
         }
-        return false;
+        return match;
     }
     
     public void agregarProducto (Producto p){
-        if (!existeProducto(p.getCodigo())){
+        System.out.println( "Size de productos: " + this.productos.size() );
+        System.out.println("Agregar producto!");
+        
+        boolean existe = existeProducto(p.getCodigo());
+        if ( existe ){
+            System.out.println("El producto existe, NO HACER NADA!");
+       } else {
+            System.out.println("El producto NO existe, agregar!");
             productos.add(p);
-       } 
+        }
+        
+        System.out.println( "Size de productos (despues): " + this.productos.size() );
     }
     
     public void eliminarProducto(String nombre) {

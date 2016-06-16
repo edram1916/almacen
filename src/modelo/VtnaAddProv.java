@@ -124,12 +124,13 @@ public class VtnaAddProv extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.setVisible(false); 
+        this.setVisible(false);
+        Main.MainWindow.actualizarProveedores();
         // new Main().setVisible(true); 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnGuardarProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarProvActionPerformed
-
+        
         // TODO add your handling code here:
         if(indiceActual == -1) {
             indiceActual= 0 ;

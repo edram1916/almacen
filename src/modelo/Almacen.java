@@ -31,7 +31,7 @@ public class Almacen implements Serializable {
         System.out.println("almacenarAlmacen()");
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(defaultNombreArchivo));
         oos.writeObject(this);
-        
+        oos.reset();
         oos.close();
     }
     

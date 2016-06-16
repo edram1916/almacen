@@ -56,13 +56,13 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jScrollBar1" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jLabel3" min="-2" pref="86" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel1" min="-2" pref="65" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtProv" min="-2" pref="264" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnbuscarprov" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel3" alignment="0" min="-2" pref="86" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel1" min="-2" pref="65" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="selectProv" min="-2" pref="294" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace pref="85" max="32767" attributes="0"/>
@@ -82,12 +82,9 @@
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnbuscarprov" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="txtProv" alignment="0" min="-2" pref="29" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="selectProv" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel3" min="-2" pref="26" max="-2" attributes="0"/>
@@ -96,14 +93,12 @@
                   <Component id="jScrollBar1" max="32767" attributes="0"/>
                   <Component id="jScrollPane1" pref="327" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="42" max="32767" attributes="0"/>
+              <EmptySpace pref="44" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JTextField" name="txtProv">
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="text" type="java.lang.String" value="Proveedor"/>
@@ -152,13 +147,23 @@
         <Property name="text" type="java.lang.String" value="Informacion de Proveedor"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnbuscarprov">
+    <Component class="javax.swing.JComboBox" name="selectProv">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Buscar"/>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnbuscarprovActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectProvActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

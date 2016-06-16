@@ -5,6 +5,8 @@ import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.*;
 
@@ -19,9 +21,8 @@ class WindowEventHandler extends WindowAdapter {
     } catch(java.io.IOException e) {
         System.out.println("Error de I/O");
     }
-   
     
-    frame.dispose();
+    System.exit(0);
   }
 }
 
@@ -32,8 +33,15 @@ class WindowEventHandler extends WindowAdapter {
 public class Main extends javax.swing.JFrame {
     
     public Almacen almacen;
+    
+    int provSeleccion = 0;
+    private Proveedor prov = null;
+    
+    public static Main MainWindow;
 
     public Main() {
+        this.MainWindow = this;
+        
         initComponents();
         if( Almacen.existeAlmacen() ) {
             System.out.println("El almacen existe, cargar desde archivo!");
@@ -50,6 +58,8 @@ public class Main extends javax.swing.JFrame {
             almacen = new Almacen();
         }
         
+        this.actualizarProveedores();
+        
         System.out.println("length proveedores (desde main): " + almacen.cantidadProveedores() );
         
         this.addWindowListener(new WindowEventHandler());
@@ -60,13 +70,41 @@ public class Main extends javax.swing.JFrame {
     }
     
     
+    void actualizarProveedores() {
+                
+        selectProv.removeAllItems();
+        
+        for( int i = 0; i < this.almacen.cantidadProveedores(); ++i ) {
+            Proveedor p = this.almacen.getProveedor(i);
+            selectProv.addItem(p.getNombre());
+        }
+    }
+    
+    
+    void actualizarProductos() {
+        int seleccion = selectProv.getSelectedIndex();
+        String salida = "";
+       
+        if( almacen.cantidadProveedores() > 0 && seleccion >= 0 ) {
+            prov = this.almacen.getProveedor(seleccion);
+            ArrayList<Producto> productos = prov.getProductos(); 
+            Collections.sort( productos, Producto.comparadorDescCod);
+            for( int i = 0; i < productos.size() ; ++i ) {
+                Producto p = productos.get(i);
+                System.out.println("Producto!" + p.toString() );
+                String fila = p.getCodigo() + ", " + p.getDescripcion() + "\n";
+                salida += fila;
+            }
+            txtSalida.setText(salida);
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
         button1 = new java.awt.Button();
-        txtProv = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtSalida = new javax.swing.JTextArea();
@@ -75,7 +113,7 @@ public class Main extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollBar1 = new javax.swing.JScrollBar();
         jLabel4 = new javax.swing.JLabel();
-        btnbuscarprov = new javax.swing.JButton();
+        selectProv = new javax.swing.JComboBox<>();
 
         jLabel2.setText("jLabel2");
 
@@ -107,10 +145,10 @@ public class Main extends javax.swing.JFrame {
 
         jLabel4.setText("Informacion de Proveedor");
 
-        btnbuscarprov.setText("Buscar");
-        btnbuscarprov.addActionListener(new java.awt.event.ActionListener() {
+        selectProv.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selectProv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnbuscarprovActionPerformed(evt);
+                selectProvActionPerformed(evt);
             }
         });
 
@@ -136,13 +174,12 @@ public class Main extends javax.swing.JFrame {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtProv, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnbuscarprov)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(selectProv, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(85, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -155,18 +192,16 @@ public class Main extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(btnbuscarprov))
-                    .addComponent(txtProv, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(selectProv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
@@ -185,10 +220,10 @@ public class Main extends javax.swing.JFrame {
         // Main.this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void btnbuscarprovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarprovActionPerformed
+    private void selectProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectProvActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_btnbuscarprovActionPerformed
+        this.actualizarProductos();
+    }//GEN-LAST:event_selectProvActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -226,7 +261,6 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnbuscarprov;
     private java.awt.Button button1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -236,7 +270,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txtProv;
+    private javax.swing.JComboBox<String> selectProv;
     private javax.swing.JTextArea txtSalida;
     // End of variables declaration//GEN-END:variables
+
+
 }

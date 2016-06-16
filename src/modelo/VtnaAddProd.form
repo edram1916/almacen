@@ -142,18 +142,28 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="Prod1">
       <Properties>
+        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Producto Basico"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Prod1ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="Prod2">
       <Properties>
         <Property name="text" type="java.lang.String" value="Producto Perecedero"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Prod2ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="Prod3">
       <Properties>
         <Property name="text" type="java.lang.String" value="Producto No Perecedero"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Prod3ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
@@ -164,6 +174,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Guardar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>

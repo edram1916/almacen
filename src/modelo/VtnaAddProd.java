@@ -17,11 +17,28 @@ public class VtnaAddProd extends javax.swing.JFrame {
      */
     private Almacen almacen;
     
+    /* 0 = producto basico, 1 = perecedero, 2 = no perecedero */
+    
+    private int tipoProducto = 0;
+    
     public VtnaAddProd( Almacen almacen) {
         initComponents();
         this.almacen = almacen;
+        cargarProveedores();
         setTitle("Proveedor");
         setLocationRelativeTo(null);
+    }
+    
+    private void cargarProveedores() {
+        selectProv.removeAllItems();
+        for( int i = 0; i < this.almacen.cantidadProveedores(); ++i ) {
+            Proveedor p = this.almacen.getProveedor(i);
+            selectProv.addItem(p.getNombre());
+        }
+    }
+    
+    private void limpiarTipos() {
+        
     }
 
     /**
@@ -68,15 +85,36 @@ public class VtnaAddProd extends javax.swing.JFrame {
 
         jLabel3.setText("Precio");
 
+        Prod1.setSelected(true);
         Prod1.setText("Producto Basico");
+        Prod1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Prod1ActionPerformed(evt);
+            }
+        });
 
         Prod2.setText("Producto Perecedero");
+        Prod2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Prod2ActionPerformed(evt);
+            }
+        });
 
         Prod3.setText("Producto No Perecedero");
+        Prod3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Prod3ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Seleccione Proveedor");
 
         jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Salir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -163,6 +201,62 @@ public class VtnaAddProd extends javax.swing.JFrame {
         this.setVisible(false); 
         // new Main().setVisible(true); 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void Prod1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Prod1ActionPerformed
+        // TODO add your handling code here:
+        Prod1.setEnabled(true);
+        Prod2.setEnabled(false);
+        Prod3.setEnabled(false);
+        
+        tipoProducto = 0;
+    }//GEN-LAST:event_Prod1ActionPerformed
+
+    private void Prod2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Prod2ActionPerformed
+        // TODO add your handling code here:
+        Prod1.setEnabled(false);
+        Prod2.setEnabled(true);
+        Prod3.setEnabled(false);
+        
+        tipoProducto = 1;
+    }//GEN-LAST:event_Prod2ActionPerformed
+
+    private void Prod3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Prod3ActionPerformed
+        // TODO add your handling code here:
+        Prod1.setEnabled(false);
+        Prod2.setEnabled(false);
+        Prod3.setEnabled(true);
+        
+        tipoProducto = 2;
+    }//GEN-LAST:event_Prod3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        int provIndex = selectProv.getSelectedIndex();
+        Proveedor prov = this.almacen.getProveedor(provIndex);
+        
+        String CodProd = txtCodProd.getText();
+        String DescProd = txtDescProd.getText();
+        Double PrecioProd = Double.parseDouble( txtPrecioProd.getText() );
+        
+        Producto p = null;
+        
+        switch(tipoProducto) {
+            case 0:
+                p = new ProductoBasico( PrecioProd, DescProd, CodProd );
+            case 1:
+                p = new ProductoNoPerecedero( PrecioProd, DescProd, CodProd );
+            case 2:
+                p = new ProductoPerecedero( PrecioProd, DescProd, CodProd );
+        }
+        
+        prov.agregarProducto(p);
+        
+        if( Main.MainWindow.provSeleccion == provIndex ) {
+            Main.MainWindow.actualizarProductos();
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -43,10 +43,11 @@ public abstract class Producto implements Comparable<Producto>, Serializable {
     
     public int compareTo(Producto p){
         return descripcion.compareTo(p.descripcion);
-    }
+    }   
     public abstract double calcularPrecio();
 
     boolean equalsIgnoreCase(String codigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return true;
     }
 }
