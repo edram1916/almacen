@@ -5,7 +5,28 @@
  */
 package modelo;
 
+import java.awt.Frame;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
+
 import javax.swing.*;
+
+class WindowEventHandler extends WindowAdapter {
+  public void windowClosing(WindowEvent evt)  {
+    Main frame = (Main) evt.getSource();
+    System.out.println(frame.almacen);
+    System.out.println("Cerrando app");
+    
+    try {
+        frame.almacen.almacenarAlmacen();
+    } catch(java.io.IOException e) {
+        System.out.println("Error de I/O");
+    }
+    
+    frame.dispose();
+  }
+}
 
 /**
  *
@@ -13,11 +34,28 @@ import javax.swing.*;
  */
 public class Main extends javax.swing.JFrame {
     
-    private Almacen almacen;
+    public Almacen almacen;
 
     public Main() {
         initComponents();
-        almacen = new Almacen();
+        if( Almacen.existeAlmacen() ) {
+            System.out.println("El almacen existe, cargar desde archivo!");
+            try {
+                almacen = Almacen.cargarAlmacen();
+            } catch(IOException e) {
+                System.out.println("Error de I/O al cargar almacen.");
+                
+            } catch(ClassNotFoundException e ) {
+                System.out.println("Error de clase.");
+            }
+        } else {
+            System.out.println("El almacen no existe, instanciar.");
+            almacen = new Almacen();
+        }
+        
+        this.addWindowListener(new WindowEventHandler());
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
         setTitle("Almacen");
     }
     @SuppressWarnings("unchecked")
@@ -152,7 +190,8 @@ public class Main extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        System.out.println("arrancando main!");
+       
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
