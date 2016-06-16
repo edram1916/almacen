@@ -7,6 +7,9 @@ import java.util.*;
 public class Almacen implements Serializable {
     private final String nombre = "Almacen S.A.";
     private ArrayList<Proveedor> proveedores;
+    
+    // el nombre 
+    static private String defaultNombreArchivo = "./almacen.dat";
 
     public Almacen(ArrayList<Proveedor> proveedores) {
         this.proveedores = proveedores;
@@ -14,6 +17,28 @@ public class Almacen implements Serializable {
     
     public Almacen() {
         this.proveedores = new ArrayList();
+    }
+    
+    /* Funciones para persistencia */
+    
+    public static Boolean existeAlmacen() {
+        System.out.println("existeAlmacen()");
+        File archivo = new File(defaultNombreArchivo);
+        return archivo.exists() && !archivo.isDirectory();
+    }
+    
+    public void almacenarAlmacen() throws IOException {
+        System.out.println("almacenarAlmacen()");
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(defaultNombreArchivo));
+        oos.writeObject(this);
+        
+        oos.close();
+    }
+    
+    public static Almacen cargarAlmacen() throws IOException, ClassNotFoundException {
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(defaultNombreArchivo));
+        Almacen almacen = (Almacen) ois.readObject();
+        return almacen;
     }
     
     public int cantidadProveedores(){
@@ -62,4 +87,5 @@ public class Almacen implements Serializable {
        
         return proveedores.get(i);
     }
+   
  }
