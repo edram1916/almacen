@@ -155,15 +155,6 @@ public class VtnaAddProv extends javax.swing.JFrame {
        
     }//GEN-LAST:event_btnGuardarProvActionPerformed
 
-    /*
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                System.out.println("blablablaba");
-                new VtnaAddProv().setVisible(true);
-            }
-        });
-    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel DirCl;
