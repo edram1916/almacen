@@ -23,6 +23,12 @@ public class VtnaAddProd extends javax.swing.JFrame {
         setTitle("Proveedor");
         setLocationRelativeTo(null);
     }
+    
+    private void limpiarCampos() {
+        txtCodProd.setText("");
+        txtDescProd.setText("");
+        txtPrecioProd.setText("");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
