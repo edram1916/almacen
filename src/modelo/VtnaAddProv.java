@@ -27,6 +27,13 @@ public class VtnaAddProv extends javax.swing.JFrame {
         MailCl.setText("" + p.getMail());
         }
     }
+    
+    private void limpiarCampos() {
+        txtnombreCl.setText("");
+        txttelCl.setText("");
+        txtdirCl.setText("");
+        txtmailCl.setText("");
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -125,7 +132,7 @@ public class VtnaAddProv extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.setVisible(false); 
-        new Main().setVisible(true); 
+        new Main().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnGuardarProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarProvActionPerformed
@@ -138,8 +145,9 @@ public class VtnaAddProv extends javax.swing.JFrame {
             ++indiceActual;
         }
 
-        Proveedor p = new Proveedor(txtnombreCl.getText(), TelCl.getText(), DirCl.getText(), MailCl.getText());
+        Proveedor p = new Proveedor(txtnombreCl.getText(), txttelCl.getText(), txtdirCl.getText(), txtmailCl.getText());
         this.almacen.agregarProveedor(p);
+        limpiarCampos();
         
         // Proveedor p = new Proveedor(NombreCl.getText(), TelCl.getText(), DirCl.getText(), MailCl.getText());
         // System.out.println(p.getNombre());
