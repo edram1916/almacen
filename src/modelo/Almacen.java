@@ -47,6 +47,7 @@ public class Almacen implements Serializable {
     
     public void agregarProveedor(Proveedor p){
         proveedores.add(p);
+        System.out.println("length proveedores: " + proveedores.size());
         // if(!existeProveedor(p.getNombre())){
 
         // }

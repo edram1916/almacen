@@ -19,6 +19,7 @@ class WindowEventHandler extends WindowAdapter {
     } catch(java.io.IOException e) {
         System.out.println("Error de I/O");
     }
+   
     
     frame.dispose();
   }
@@ -48,6 +49,8 @@ public class Main extends javax.swing.JFrame {
             System.out.println("El almacen no existe, instanciar.");
             almacen = new Almacen();
         }
+        
+        System.out.println("length proveedores (desde main): " + almacen.cantidadProveedores() );
         
         this.addWindowListener(new WindowEventHandler());
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -172,14 +175,14 @@ public class Main extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         VtnaAddProv nuevaVentana = new VtnaAddProv(almacen);
         nuevaVentana.setVisible(true);
-        Main.this.dispose();
+        // Main.this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         VtnaAddProd nV = new VtnaAddProd(almacen);
         nV.setVisible(true);
-        Main.this.dispose();
+        // Main.this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnbuscarprovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarprovActionPerformed
