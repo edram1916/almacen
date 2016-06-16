@@ -147,6 +147,7 @@ public class VtnaAddProv extends javax.swing.JFrame {
             ++indiceActual;
         }
 
+        
         Proveedor p = new Proveedor(txtnombreCl.getText(), txttelCl.getText(), txtdirCl.getText(), txtmailCl.getText());
         this.almacen.agregarProveedor(p);
         limpiarCampos();
